@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black_main">#212121</color>
+    <color name="black_nav">#171717</color>
+    <color name="white">#F5F5F5</color>
+    <color name="green">#18D920</color>
+    <color name="danger">#FF0E0E</color>
+    <color name="badge_back">#FF4081</color>
+    <color name="badge_text">#FFFFFF</color>
+</resources>

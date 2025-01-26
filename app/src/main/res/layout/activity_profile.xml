@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_main"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp">
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/arrow_back"
+        android:contentDescription="Back"
+        app:tint="@color/green"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_background"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/newPass"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="New Password"
+            android:inputType="textPassword"
+            android:padding="4dp"
+            android:textColor="@color/green"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <ImageView
+            android:id="@+id/password_toggle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="Toggle Password Visibility"
+            android:padding="8dp"
+            android:src="@drawable/ic_visibility_off"
+            app:tint="@color/green" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_background"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <EditText
+            android:id="@+id/confirmNewPass"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:padding="4dp"
+            android:textColor="@color/green"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <ImageView
+            android:id="@+id/passwordToggle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="Toggle Password Visibility"
+            android:padding="8dp"
+            android:src="@drawable/ic_visibility_off"
+            app:tint="@color/green" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/savePass"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        android:background="@drawable/edittext_background"
+        android:text="Save"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

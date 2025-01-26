@@ -1,0 +1,182 @@
+[
+  {
+    "avatar": "ic_user",
+    "username": "John Doe",
+    "email": "john.doe@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Michael Brown",
+    "email": "michael.brown@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Emily Johnson",
+    "email": "emily.johnson@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "David Lee",
+    "email": "david.lee@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Sophia Wang",
+    "email": "sophia.wang@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "William Clark",
+    "email": "william.clark@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Olivia Evans",
+    "email": "olivia.evans@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Daniel Lewis",
+    "email": "daniel.lewis@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Ava Harris",
+    "email": "ava.harris@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Lucas Young",
+    "email": "lucas.young@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Mia King",
+    "email": "mia.king@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "James Scott",
+    "email": "james.scott@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Charlotte Adams",
+    "email": "charlotte.adams@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Benjamin Nelson",
+    "email": "benjamin.nelson@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Amelia Carter",
+    "email": "amelia.carter@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Ethan Perez",
+    "email": "ethan.perez@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Ella Mitchell",
+    "email": "ella.mitchell@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Jackson Roberts",
+    "email": "jackson.roberts@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Lily Walker",
+    "email": "lily.walker@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Mason Green",
+    "email": "mason.green@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Chloe Hall",
+    "email": "chloe.hall@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Alexander Allen",
+    "email": "alexander.allen@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Grace Harris",
+    "email": "grace.harris@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Logan Carter",
+    "email": "logan.carter@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Zoe Walker",
+    "email": "zoe.walker@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Oliver Lewis",
+    "email": "oliver.lewis@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Harper Robinson",
+    "email": "harper.robinson@example.com",
+    "role": "student"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Sebastian Thomas",
+    "email": "sebastian.thomas@example.com",
+    "role": "teacher"
+  },
+  {
+    "avatar": "ic_user",
+    "username": "Scarlett White",
+    "email": "scarlett.white@example.com",
+    "role": "student"
+  }
+]
