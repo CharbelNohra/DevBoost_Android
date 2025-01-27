@@ -14,6 +14,8 @@ import com.example.bottomnavigation.Profile.Profile;
 import com.example.bottomnavigation.R;
 import com.example.bottomnavigation.login.Login;
 
+import java.util.Objects;
+
 public class Settings extends Fragment {
 
     private static final String PREFS_NAME = "admin_prefs";
@@ -33,7 +35,7 @@ public class Settings extends Fragment {
     }
 
     private void showPasswordDialog() {
-        String savedPassword = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        String savedPassword = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
                 .getString(SAVED_PASSWORD_KEY, "");
 
         LayoutInflater inflater = getLayoutInflater();
@@ -42,7 +44,7 @@ public class Settings extends Fragment {
         final EditText input = dialogView.findViewById(R.id.editPassword);
         Button btnConfirmPassword = dialogView.findViewById(R.id.btnConfirmPassword);
 
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(requireActivity());
         builder.setView(dialogView);
         builder.setCancelable(true);
 
@@ -62,7 +64,7 @@ public class Settings extends Fragment {
     }
 
     private void logout() {
-        getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
                 .edit()
                 .clear()
                 .apply();
@@ -72,6 +74,6 @@ public class Settings extends Fragment {
         Intent intent = new Intent(getActivity(), Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        getActivity().finish();
+        requireActivity().finish();
     }
 }
