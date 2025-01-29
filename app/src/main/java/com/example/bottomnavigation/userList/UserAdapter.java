@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import com.example.bottomnavigation.R;
 
@@ -14,6 +16,7 @@ public class UserAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<User> userList;
 
+    // Constructor to initialize context and user list
     public UserAdapter(Context context, ArrayList<User> userList) {
         this.context = context;
         this.userList = userList;
@@ -36,20 +39,33 @@ public class UserAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.user_item, parent, false);
         }
 
         User user = userList.get(position);
-
         ImageView avatar = convertView.findViewById(R.id.avatar);
         TextView username = convertView.findViewById(R.id.username);
         TextView email = convertView.findViewById(R.id.email);
+        ImageView delete = convertView.findViewById(R.id.delete);
 
         avatar.setImageResource(R.drawable.ic_user);
+
         username.setText(user.getUsername());
         email.setText(user.getEmail());
+
+        if ("teacher".equals(user.getRole())) {
+            delete.setVisibility(View.GONE);
+        } else {
+            delete.setVisibility(View.VISIBLE);
+            delete.setOnClickListener(v -> {
+                userList.remove(position);
+                notifyDataSetChanged();
+                Toast.makeText(context, "User deleted: " + user.getUsername(), Toast.LENGTH_SHORT).show();
+            });
+        }
 
         return convertView;
     }

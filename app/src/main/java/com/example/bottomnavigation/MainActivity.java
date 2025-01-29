@@ -9,16 +9,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.bottomnavigation.botNavBar.AllUsers;
-import com.example.bottomnavigation.botNavBar.Requests;
+import com.example.bottomnavigation.botNavBar.Notifications;
 import com.example.bottomnavigation.botNavBar.Settings;
 import com.example.bottomnavigation.login.Login;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private int requestCount = 5;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -43,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         );
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_all_users);
+        loadFragment(new AllUsers());
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_settings:
@@ -52,24 +52,11 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new AllUsers());
                     break;
                 case R.id.nav_notifications:
-                    loadFragment(new Requests());
+                    loadFragment(new Notifications());
                     break;
             }
             return true;
         });
-
-        // Set badge on the notification icon (requests icon)
-        BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(R.id.nav_notifications);
-        if (requestCount > 0) {
-            badge.setVisible(true);
-            badge.setNumber(requestCount);
-        } else {
-            badge.setVisible(false);
-        }
-
-        if (savedInstanceState == null) {
-            loadFragment(new AllUsers());
-        }
     }
 
     private void navigateToLoginActivity() {
