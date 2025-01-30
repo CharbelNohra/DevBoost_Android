@@ -34,6 +34,9 @@ public class Notifications extends Fragment {
             } else {
                 saveNotification(title, message);
             }
+
+            etTitle.setText("");
+            etMessage.setText("");
         });
 
         return view;
