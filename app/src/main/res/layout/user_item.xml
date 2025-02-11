@@ -59,6 +59,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:tint="@color/danger"
-        android:src="@drawable/ic_delete" />
+        android:src="@drawable/ic_delete"
+        android:visibility="gone" /> <!-- Initially hide the delete icon -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

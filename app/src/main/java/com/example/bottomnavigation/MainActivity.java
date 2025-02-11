@@ -5,9 +5,9 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import com.example.bottomnavigation.botNavBar.AllUsers;
 import com.example.bottomnavigation.botNavBar.Notifications;
 import com.example.bottomnavigation.botNavBar.Settings;
@@ -15,23 +15,25 @@ import com.example.bottomnavigation.login.Login;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private BottomNavigationView bottomNavigationView;
     private SharedPreferences sharedPreferences;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
 
-        sharedPreferences = getSharedPreferences("admin_prefs", MODE_PRIVATE);
-
-        // Check if user is logged out and redirect to Login screen if needed
-        boolean isLoggedIn = sharedPreferences.getBoolean("is_logged_in", false);
-        if (!isLoggedIn) {
+        // Check if user is logged in, otherwise redirect to Login
+        if (!sharedPreferences.getBoolean("is_logged_in", false)) {
             navigateToLoginActivity();
+            return;
         }
 
+        setContentView(R.layout.activity_main);
+        setupUI();
+    }
+
+    private void setupUI() {
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -41,34 +43,36 @@ public class MainActivity extends AppCompatActivity {
         );
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_all_users);
-        loadFragment(new AllUsers());
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_settings:
                     loadFragment(new Settings());
-                    break;
+                    return true;
                 case R.id.nav_all_users:
                     loadFragment(new AllUsers());
-                    break;
+                    return true;
                 case R.id.nav_notifications:
                     loadFragment(new Notifications());
-                    break;
+                    return true;
+                default:
+                    return false;
             }
-            return true;
         });
+
+        // Load default fragment
+        bottomNavigationView.setSelectedItemId(R.id.nav_all_users);
+        loadFragment(new AllUsers());
     }
 
     private void navigateToLoginActivity() {
-        Intent intent = new Intent(MainActivity.this, Login.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
         finish();
     }
 
     private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 }

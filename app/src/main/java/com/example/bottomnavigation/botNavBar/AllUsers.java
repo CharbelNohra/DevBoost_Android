@@ -7,15 +7,21 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
+
 import androidx.fragment.app.Fragment;
+
 import com.example.bottomnavigation.R;
 import com.example.bottomnavigation.userList.User;
 import com.example.bottomnavigation.userList.UserAdapter;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.example.bottomnavigation.api.ApiService;
+import com.example.bottomnavigation.api.RetrofitClient;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AllUsers extends Fragment {
 
@@ -30,8 +36,7 @@ public class AllUsers extends Fragment {
         ListView studentListView = view.findViewById(R.id.studentListView);
         ListView teacherListView = view.findViewById(R.id.teacherListView);
 
-        loadDataFromJson();
-
+        // Initialize adapters
         studentAdapter = new UserAdapter(getActivity(), studentList);
         teacherAdapter = new UserAdapter(getActivity(), teacherList);
 
@@ -43,6 +48,9 @@ public class AllUsers extends Fragment {
 
         setupTab(tabHost, "Students", R.id.studentListView);
         setupTab(tabHost, "Teachers", R.id.teacherListView);
+
+        // Fetch user data from APIs
+        fetchUserData();
 
         return view;
     }
@@ -59,211 +67,32 @@ public class AllUsers extends Fragment {
         tabHost.addTab(tabSpec);
     }
 
-    private void loadDataFromJson() {
-        String jsonString = "[\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"John Doe\",\n" +
-                "    \"email\": \"john.doe@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Jane Smith\",\n" +
-                "    \"email\": \"jane.smith@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Michael Brown\",\n" +
-                "    \"email\": \"michael.brown@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Emily Johnson\",\n" +
-                "    \"email\": \"emily.johnson@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"David Lee\",\n" +
-                "    \"email\": \"david.lee@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Sophia Wang\",\n" +
-                "    \"email\": \"sophia.wang@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"William Clark\",\n" +
-                "    \"email\": \"william.clark@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Olivia Evans\",\n" +
-                "    \"email\": \"olivia.evans@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Daniel Lewis\",\n" +
-                "    \"email\": \"daniel.lewis@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Ava Harris\",\n" +
-                "    \"email\": \"ava.harris@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Lucas Young\",\n" +
-                "    \"email\": \"lucas.young@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Mia King\",\n" +
-                "    \"email\": \"mia.king@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"James Scott\",\n" +
-                "    \"email\": \"james.scott@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Charlotte Adams\",\n" +
-                "    \"email\": \"charlotte.adams@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Benjamin Nelson\",\n" +
-                "    \"email\": \"benjamin.nelson@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Amelia Carter\",\n" +
-                "    \"email\": \"amelia.carter@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Ethan Perez\",\n" +
-                "    \"email\": \"ethan.perez@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Ella Mitchell\",\n" +
-                "    \"email\": \"ella.mitchell@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Jackson Roberts\",\n" +
-                "    \"email\": \"jackson.roberts@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Lily Walker\",\n" +
-                "    \"email\": \"lily.walker@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Mason Green\",\n" +
-                "    \"email\": \"mason.green@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Chloe Hall\",\n" +
-                "    \"email\": \"chloe.hall@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Alexander Allen\",\n" +
-                "    \"email\": \"alexander.allen@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Grace Harris\",\n" +
-                "    \"email\": \"grace.harris@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Logan Carter\",\n" +
-                "    \"email\": \"logan.carter@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Zoe Walker\",\n" +
-                "    \"email\": \"zoe.walker@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Oliver Lewis\",\n" +
-                "    \"email\": \"oliver.lewis@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Harper Robinson\",\n" +
-                "    \"email\": \"harper.robinson@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Sebastian Thomas\",\n" +
-                "    \"email\": \"sebastian.thomas@example.com\",\n" +
-                "    \"role\": \"teacher\"\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"avatar\": \"ic_user\",\n" +
-                "    \"username\": \"Scarlett White\",\n" +
-                "    \"email\": \"scarlett.white@example.com\",\n" +
-                "    \"role\": \"student\"\n" +
-                "  }\n" +
-                "]";
+    private void fetchUserData() {
+        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
 
+        // Fetch student data
+        fetchData(apiService.getAllStudents(), studentList, studentAdapter);
 
-        try {
-            JSONArray jsonArray = new JSONArray(jsonString);
+        // Fetch teacher data
+        fetchData(apiService.getAllTeachers(), teacherList, teacherAdapter);
+    }
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                User user = new User(
-                        jsonObject.getString("avatar"),
-                        jsonObject.getString("username"),
-                        jsonObject.getString("email"),
-                        jsonObject.getString("role")
-                );
-
-                if (user.getRole().equals("student")) {
-                    studentList.add(user);
-                } else {
-                    teacherList.add(user);
+    private void fetchData(Call<List<User>> call, final ArrayList<User> list, final UserAdapter adapter) {
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    list.clear();
+                    list.addAll(response.body());
+                    adapter.notifyDataSetChanged();
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                // Handle failure
+                t.printStackTrace();
+            }
+        });
     }
 }

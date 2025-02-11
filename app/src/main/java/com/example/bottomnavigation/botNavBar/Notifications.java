@@ -11,6 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.bottomnavigation.R;
+import com.example.bottomnavigation.api.ApiService;
+import com.example.bottomnavigation.api.RetrofitClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Notifications extends Fragment {
 
@@ -32,9 +37,10 @@ public class Notifications extends Fragment {
             if (title.isEmpty() || message.isEmpty()) {
                 Toast.makeText(getActivity(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
             } else {
-                saveNotification(title, message);
+                sendNotification(title, message);
             }
 
+            // Clear the input fields after sending
             etTitle.setText("");
             etMessage.setText("");
         });
@@ -42,7 +48,33 @@ public class Notifications extends Fragment {
         return view;
     }
 
-    private void saveNotification(String title, String message) {
-        Toast.makeText(getActivity(), "Notification Sent: " + title, Toast.LENGTH_SHORT).show();
+    // Method to send notification via API
+    private void sendNotification(String title, String message) {
+        // Create the NotificationRequest object
+        NotificationRequest request = new NotificationRequest(title, message);
+
+        // Create the API service using Retrofit
+        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+
+        // Make the API call
+        Call<Void> call = apiService.sendNotification(request);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Successfully sent the notification
+                    Toast.makeText(getActivity(), "Notification sent successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Handle failure response
+                    Toast.makeText(getActivity(), "Failed to send notification", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle network error or failure
+                Toast.makeText(getActivity(), "Error occurred while sending notification", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
